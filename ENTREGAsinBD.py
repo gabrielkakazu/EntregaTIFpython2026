@@ -7,6 +7,7 @@ pantalla = "Sistema de Gestión Básica de Productos"
 print (pantalla)
 
 def menu():
+    # TODO agregar colorama al menú
     """ Muestra en pantalla las opciones del Sistema de Gestion:
     1. Ingresar productos
     2. Mostrar productos
@@ -29,7 +30,7 @@ def agregar_producto():
      - si precio es invalido menor o igual a 0
     Al tener todos los datos válidos se agrega al stock del modulo productos.
     """
-
+    # [TO DO] la validación por id repetido.
     id_producto = ""
     nombre = ""
     categoria = ""
@@ -82,11 +83,8 @@ def agregar_producto():
         
     separador()
 
-            
-
-
-
 def consultar_productos():
+    # [TO DO] forma de presentación de la lista de productos. Agregar colorama.
     """ Imprime en pantalla los productos agregados y su precio.
     """
     if productos.stock:
@@ -145,6 +143,7 @@ def borrar_producto():
             separador()"""
 
 def mostrar_menu():
+    # AGREGAR COLORAMA a la despedida
     while True:
         menu()
         opcion = input("Ingresa una opcion (1-5): ")
