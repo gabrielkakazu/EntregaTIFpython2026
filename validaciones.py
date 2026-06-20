@@ -25,7 +25,12 @@ def conversion(precio) :
         print("[ERROR] Debés ingresar un valor numérico válido. No se admiten letras ni símbolos.")
 
 def stockInvalido(stock):
-    return not isinstance(stock, int) or stock <= 0
+    try:
+        numero = int(stock)
+        return numero <= 0
+    except ValueError:
+        return True
+
 
 def repetido(id):
     encontrado = False

@@ -17,8 +17,9 @@ def menu():
     4. Eliminar producto
     5. Actualizar producto
     6. Salir
+    7. Alerta stock bajo
     """
-    print(Back.BLUE + Fore.WHITE + "1. Ingresar productos\n2. Mostrar productos\n3. Buscar producto\n4. Eliminar producto\n5. Actualizar producto\n6. Salir\n" )
+    print(Back.BLUE + Fore.WHITE + "1. Ingresar productos\n2. Mostrar productos\n3. Buscar producto\n4. Eliminar producto\n5. Actualizar producto\n6. Salir\n7. Alerta stock bajo" )
 
 def separador() :
     # Un separador para aplicar a cada interracción con el menú
@@ -98,8 +99,9 @@ def consultar_productos():
     separador()    
 
 def buscar_producto():
-    """ Solicita el ID de un producto, si está en stock, imprime en pantalla el precio y la cantidad.
-    Si no lo encuentra, dice que el producto no está disponible. Y ofrece la opcion de volver al menu inicial
+    """ 
+        Solicita el ID de un producto, si está en stock, imprime en pantalla el precio y la cantidad.
+        Si no lo encuentra, dice que el producto no está disponible. Y ofrece la opcion de volver al menu inicial
     """
 
     while True:
@@ -117,8 +119,9 @@ def buscar_producto():
     separador()
 
 def borrar_producto():
-    """Solicita el ID de un producto a borrar, si está en stock, lo borra del stock.
-    Si no lo encuentra, dice que el producto no está disponible. Y ofrece la opcion de volver al menu inicial
+    """
+        Solicita el ID de un producto a borrar, si está en stock, lo borra del stock.
+        Si no lo encuentra, dice que el producto no está disponible. Y ofrece la opcion de volver al menu inicial
     """
     while True:
         id_buscado = input("Ingrese ID de producto a eliminar del stock: ").strip().upper()
@@ -136,6 +139,10 @@ def borrar_producto():
     separador()
 
 def actualizar_producto():
+    """
+    Solicita un ID. Si el producto no se encuentra en Stock sale. 
+    Si el producto está en stock, solicita para cambiar nombre, categoria, precio o stock. 
+    """
 
     id_buscado = input("Ingrese el ID a modificar: ").strip().upper()
 
@@ -201,13 +208,40 @@ def actualizar_producto():
 
             return
 
-    print("No existe un registro con ese ID.")
+    print("No existe un producto con ese ID en nuestro stock.")
     separador()
 
+def alerta_stock_bajo():
+    while True:
+        cantidad = input("Ingrese una cantidad mínima de stock: ")
+        if validaciones.stockInvalido(cantidad):
+            print("No ingreso una cantidad mínima aceptable")
+        else:
+            stockBajo = False
+            for producto in productos.stock:
+                if producto["stock"] < int(cantidad):
+                    stockBajo = True
+                    print(f"{producto["nombre"].capitalize()} con stock bajo.")
+            if not stockBajo:
+                print(f"No hay productos con stock menor a {int(cantidad)}")
+            
+            mensaje = input("Presione 's' para regresar al menú")
+            if mensaje.strip().lower() == "s":
+                print("Regresando al menú de inicio...")
+                break
+
+
+
+
+
 def mostrar_menu():
+    """
+        Aplicacion principal. 
+        Muestra las opciones del menu para activar las funcionalidades
+    """
     while True:
         menu()
-        opcion = input("Ingresa una opcion (1-6): ")
+        opcion = input("Ingresa una opcion (1-7): ")
 
         match opcion.strip():
             case "1":
@@ -225,10 +259,14 @@ def mostrar_menu():
                 print("Gestion de productos desarrollado por @GabrielKakazu")
                 print("Talento Tech 2026 - Iniciación a Python")
                 break
+            case "7":
+                alerta_stock_bajo()
             case _:
                 print(Back.BLUE + Fore.WHITE + "Lo siento, no ingresó una opción válida" + Fore.RESET + Back.RESET)
 
 mostrar_menu()
+
+
         
 
 
