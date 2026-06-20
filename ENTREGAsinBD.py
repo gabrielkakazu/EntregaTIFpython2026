@@ -1,13 +1,16 @@
+from colorama import Fore, Back, init
+init()
+
 import datetime as fecha
 import productos
 import validaciones
 
 # MENU DE OPCIONES
 pantalla = "Sistema de Gestión Básica de Productos"
-print (pantalla)
+print (Fore.RED + pantalla)
 
 def menu():
-    # TODO agregar colorama al menú
+    
     """ Muestra en pantalla las opciones del Sistema de Gestion:
     1. Ingresar productos
     2. Mostrar productos
@@ -15,11 +18,11 @@ def menu():
     4. Eliminar productos
     5. Salir
     """
-    print(" 1. Ingresar productos\n 2. Mostrar productos\n 3. Buscar producto\n 4. Eliminar producto\n 5. Salir\n")
+    print(Back.BLUE + Fore.WHITE + " 1. Ingresar productos\n 2. Mostrar productos\n 3. Buscar producto\n 4. Eliminar producto\n 5. Salir\n" + Fore.RESET + Back.RESET)
 
 def separador() :
     # Un separador para aplicar a cada interracción con el mení
-    print("---")
+    print(Back.BLUE + Fore.WHITE +  "---" + Fore.RESET + Back.RESET)
 
 def agregar_producto():
     """
@@ -90,7 +93,7 @@ def consultar_productos():
     if productos.stock:
         print("Lista de productos:")
         for i, producto in enumerate(productos.stock, start=1):
-            print(f"{i}. {producto}")
+            print(f"{i}. ID {producto["ID"]}: hay {producto["stock"]} unidades de {producto["nombre"]} a un precio unitario de ${producto["precio"]}")
             
     else:
         print("Lista de productos vacía.")
@@ -143,7 +146,6 @@ def borrar_producto():
             separador()"""
 
 def mostrar_menu():
-    # AGREGAR COLORAMA a la despedida
     while True:
         menu()
         opcion = input("Ingresa una opcion (1-5): ")
@@ -158,12 +160,12 @@ def mostrar_menu():
             case "4":
                 borrar_producto()
             case "5":
-                print("Gracias, vuelvas pronto")
+                print(Back.BLUE + Fore.WHITE + "Gracias, vuelvas pronto")
                 print("Gestion de productos desarrollado por @GabrielKakazu")
                 print("Talento Tech 2026 - Iniciación a Python")
                 break
             case _:
-                print("Lo siento, no ingresó una opción válida")
+                print(Back.BLUE + Fore.WHITE + "Lo siento, no ingresó una opción válida" + Fore.RESET + Back.RESET)
 
 mostrar_menu()
         
