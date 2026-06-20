@@ -16,10 +16,10 @@ def menu():
     3. Buscar producto
     4. Eliminar producto
     5. Actualizar producto
-    6. Salir
-    7. Alerta stock bajo
+    6. Alerta stock bajo
+    7. Salir
     """
-    print(Back.BLUE + Fore.WHITE + "1. Ingresar productos\n2. Mostrar productos\n3. Buscar producto\n4. Eliminar producto\n5. Actualizar producto\n6. Salir\n7. Alerta stock bajo" )
+    print(Back.BLUE + Fore.WHITE + "1. Ingresar productos\n2. Mostrar productos\n3. Buscar producto\n4. Eliminar producto\n5. Actualizar producto\n6. Alerta stock bajo\n7. Salir " )
 
 def separador() :
     # Un separador para aplicar a cada interracción con el menú
@@ -254,12 +254,12 @@ def mostrar_menu():
                 borrar_producto()
             case "5":
                 actualizar_producto()
-            case "6":
+            case "7":
                 print(Back.BLUE + Fore.WHITE + "Gracias, vuelvas pronto")
                 print("Gestion de productos desarrollado por @GabrielKakazu")
                 print("Talento Tech 2026 - Iniciación a Python")
                 break
-            case "7":
+            case "6":
                 alerta_stock_bajo()
             case _:
                 print(Back.BLUE + Fore.WHITE + "Lo siento, no ingresó una opción válida" + Fore.RESET + Back.RESET)

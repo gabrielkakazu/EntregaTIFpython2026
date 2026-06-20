@@ -1,13 +1,24 @@
 # EntregaFinalPython2026TalentoTech
 CRUD de productos del curso Iniciación a la Programación con Python (TalentoTech2026)
 
+## Funcionalidades de la aplicación
+La aplicación permite:
+* Registrar nuevos productos.
+* Visualizar datos de los productos registrados.
+* Actualizar datos de productos, mediante su ID.
+* Eliminación de productos, mediante su ID.
+* Búsqueda de productos, mediante su ID.
+* Reporte de productos que tengan una cantidad igual o inferior a un límite especificado por el usuario
+
 ## Menu de entrada
 Muestra en pantalla las opciones del Sistema de Gestion:
     1. Ingresar productos
     2. Mostrar productos
-    3. Buscar productos
-    4. Eliminar productos
-    5. Salir
+    3. Buscar producto
+    4. Eliminar producto
+    5. Actualizar producto
+    6. Alerta Stock Bajo
+    7. Salir
 
 ## Modularizacion
 + Se incorpora el modulo colorama para un tratamiento visual.
@@ -24,7 +35,10 @@ Las herramientas del CRUD estan estructuradas en diferentes funciones para orden
     - consultar_producto()
     - buscar_producto()
     - borrar_producto()
+    - actualizar_producto()
+    - alerta_stock_bajo()
     - mostrar_menu() que es la funcion principal.
+
 
 
 Autor: Kakazu, Gabriel Nicolás
