@@ -13,11 +13,12 @@ def menu():
     """ Muestra en pantalla las opciones del Sistema de Gestion:
     1. Ingresar productos
     2. Mostrar productos
-    3. Buscar productos
-    4. Eliminar productos
-    5. Salir
+    3. Buscar producto
+    4. Eliminar producto
+    5. Actualizar producto
+    6. Salir
     """
-    print(Back.BLUE + Fore.WHITE + "1. Ingresar productos\n2. Mostrar productos\n3. Buscar producto\n4. Eliminar producto\n5. Salir\n" )
+    print(Back.BLUE + Fore.WHITE + "1. Ingresar productos\n2. Mostrar productos\n3. Buscar producto\n4. Eliminar producto\n5. Actualizar producto\n6. Salir\n" )
 
 def separador() :
     # Un separador para aplicar a cada interracción con el menú
@@ -135,12 +136,78 @@ def borrar_producto():
     separador()
 
 def actualizar_producto():
-    
+
+    id_buscado = input("Ingrese el ID a modificar: ").strip().upper()
+
+    for producto in productos.stock:
+
+        if producto["ID"] == id_buscado:
+
+            opcion = ""
+
+            while opcion != "0":
+
+                print("\n¿Qué desea modificar?")
+                print("1. Nombre")
+                print("2. Categoría")
+                print("3. Precio")
+                print("4. Stock")
+                print("0. Salir")
+
+                opcion = input("Opción: ")
+
+                match opcion:
+
+                    case "1":
+                        nuevo = ""
+                        while not nuevo:
+                            nuevo = input("Nuevo nombre: ").strip()
+                        producto["nombre"] = nuevo
+
+                    case "2":
+                        nuevo = ""
+                        while not nuevo:
+                            nuevo = input("Nueva categoría: ").strip()
+                        producto["categoria"] = nuevo
+
+                    case "3":
+                        while True:
+                            try:
+                                nuevo = float(input("Nuevo precio: "))
+                                if nuevo > 0:
+                                    producto["precio"] = nuevo
+                                    break
+                                print("Debe ser mayor que cero.")
+                            except ValueError:
+                                print("Ingrese un número válido.")
+
+                    case "4":
+                        while True:
+                            try:
+                                nuevo = int(input("Nuevo stock: "))
+                                if nuevo >= 0:
+                                    producto["stock"] = nuevo
+                                    break
+                                print("Debe ser un entero mayor o igual a cero.")
+                            except ValueError:
+                                print("Ingrese un entero válido.")
+
+                    case "0":
+                        print("Cambios realizados.")
+                        print(producto)
+
+                    case _:
+                        print("Opción inválida.")
+
+            return
+
+    print("No existe un registro con ese ID.")
+    separador()
 
 def mostrar_menu():
     while True:
         menu()
-        opcion = input("Ingresa una opcion (1-5): ")
+        opcion = input("Ingresa una opcion (1-6): ")
 
         match opcion.strip():
             case "1":
@@ -152,6 +219,8 @@ def mostrar_menu():
             case "4":
                 borrar_producto()
             case "5":
+                actualizar_producto()
+            case "6":
                 print(Back.BLUE + Fore.WHITE + "Gracias, vuelvas pronto")
                 print("Gestion de productos desarrollado por @GabrielKakazu")
                 print("Talento Tech 2026 - Iniciación a Python")
