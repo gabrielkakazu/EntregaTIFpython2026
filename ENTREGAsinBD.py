@@ -1,7 +1,6 @@
 from colorama import Fore, Back, init
 init()
 
-import datetime as fecha
 import productos
 import validaciones
 
@@ -18,10 +17,10 @@ def menu():
     4. Eliminar productos
     5. Salir
     """
-    print(Back.BLUE + Fore.WHITE + " 1. Ingresar productos\n 2. Mostrar productos\n 3. Buscar producto\n 4. Eliminar producto\n 5. Salir\n" + Fore.RESET + Back.RESET)
+    print(Back.BLUE + Fore.WHITE + "1. Ingresar productos\n2. Mostrar productos\n3. Buscar producto\n4. Eliminar producto\n5. Salir\n" )
 
 def separador() :
-    # Un separador para aplicar a cada interracción con el mení
+    # Un separador para aplicar a cada interracción con el menú
     print(Back.BLUE + Fore.WHITE +  "---" + Fore.RESET + Back.RESET)
 
 def agregar_producto():
@@ -44,18 +43,18 @@ def agregar_producto():
     while not validaciones.productoValido(id_producto, nombre, categoria, cantidad, precio):
 
         while validaciones.stringsNoVacio(id_producto, nombre, categoria):
-            id_producto = input("Ingrese ID del producto: ").strip()
             nombre = input("Ingrese nombre de producto: ").strip()
             categoria = input("Ingrese categoría de producto: ").strip()
-            
-        # if validaciones.repetido(id):
-        #     print("Lo siento, ese ID ya existe en nuestra base de datos")
-        #     break
-        
+            id_producto = input("Ingrese ID del producto: ").strip()
+            if validaciones.repetido(id_producto.upper()):
+                print("Lo siento, ese ID ya existe en nuestra base de datos")
+                id_producto = ""
+
+                
         idFormato = id_producto.upper()
         nombreFormateado = nombre.lower()
         categoriaFormateada = categoria.capitalize()
-        fechaDeImportación = fecha.date.today()
+        
         
         while int(cantidad) <= 0:
             cantidad = input("Ingrese stock del producto (tiene que ser entero positivo):")
@@ -87,63 +86,55 @@ def agregar_producto():
     separador()
 
 def consultar_productos():
-    # [TO DO] forma de presentación de la lista de productos. Agregar colorama.
-    """ Imprime en pantalla los productos agregados y su precio.
+    """ Imprime en pantalla los productos y su ID.
     """
     if productos.stock:
-        print("Lista de productos:")
+        print(Back.GREEN + Fore.WHITE + "Lista de productos:" + Back.RESET + Fore.RESET)
         for i, producto in enumerate(productos.stock, start=1):
-            print(f"{i}. ID {producto["ID"]}: hay {producto["stock"]} unidades de {producto["nombre"]} a un precio unitario de ${producto["precio"]}")
+            print(Back.BLUE + Fore.WHITE + f"{i}. ID {producto["ID"]}: {producto["nombre"].capitalize()}")
             
     else:
-        print("Lista de productos vacía.")
+        print(Back.RED + Fore.WHITE + "Lista de productos vacía." + Back.RESET + Fore.RESET)
     separador()    
 
 def buscar_producto():
-    """ Solicita el nombre de un producto, si está en la colección, imprime en pantalla el precio del producto.
-    Si no lo encuentra, dice que el producto no está disponible
+    """ Solicita el ID de un producto, si está en stock, imprime en pantalla el precio y la cantidad.
+    Si no lo encuentra, dice que el producto no está disponible. Y ofrece la opcion de volver al menu inicial
     """
 
-    """
     while True:
-        productoBuscado = input("Ingrese nombre de producto: ").strip().lower()
-        if productoBuscado not in productos:
-            print("Lo siento, el producto no esta disponible... ")
-                    
+        id_buscado = input("Ingrese ID de producto: ").strip().upper()
+        for producto in productos.stock:
+            if producto["ID"] == id_buscado:
+                print(f"Aquí tenemos {producto.get("stock")} unidades de {producto.get("nombre")} a un precio de ${producto.get("precio")}")
+                break 
         else:
-            print(f"Aquí tenemos {productoBuscado} a un precio de ${productos.get(productoBuscado)}")
-                
-            salir = input("Presione 's' para volver a Menu Inicial ")
-            if salir.lower().strip() == "s":
-                print("Volviendo a Menú Inicial...")
-                break
-    """
-
-def borrar_producto():
-    """
-    while True:
-        productoABorrar = input("Ingrese nombre de producto a eliminar: ")
-        if productoABorrar.lower().strip() not in productos:
-            print("Lo siento, el producto no existe en nuestra BD")
-            break
-        else:
-            print(f"Eliminamos {productoABorrar} de nuestra BD")
-            del productos[productoABorrar]
+            print(f"Lo siento no encontramos ningún producto con ID {id_buscado}")
+        salir = input("Presione 's' para volver a Menu Inicial ")
+        if salir.lower().strip() == "s":
+            print("Volviendo a Menú Inicial...")
             break
     separador()
+
+def borrar_producto():
+    """Solicita el ID de un producto a borrar, si está en stock, lo borra del stock.
+    Si no lo encuentra, dice que el producto no está disponible. Y ofrece la opcion de volver al menu inicial
     """
-
-            
-
-    """if productos:
-        productoABorrar = input("Ingrese nombre de producto a borrar: ")
-        if productoABorrar in productos:
-            productos.pop(productoABorrar)
-            print(f"Se eliminó {productoABorrar} de la lista.")
-            separador()
+    while True:
+        id_buscado = input("Ingrese ID de producto a eliminar del stock: ").strip().upper()
+        for posicion, producto in enumerate(productos.stock):
+            if producto["ID"] == id_buscado:
+                productos.stock.pop(posicion)
+                print(f"{producto.get("nombre").capitalize()} ha sido eliminado de la lista de productos")
+                break 
         else:
-            print(f"No se encuentra en la lista {productoABorrar}")
-            separador()"""
+            print(f"Lo siento no encontramos ningún producto con ID {id_buscado}")
+        salir = input("Presione 's' para volver a Menu Inicial ")
+        if salir.lower().strip() == "s":
+            print("Volviendo a Menú Inicial...")
+            break
+    separador()
+
 
 def mostrar_menu():
     while True:

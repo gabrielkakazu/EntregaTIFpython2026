@@ -14,4 +14,3 @@ stock = [{"ID":"AA0054",
           "categoria":"Almacen",
           "precio":789.0,
           "stock":30}]
-fechasDeAgregado = []

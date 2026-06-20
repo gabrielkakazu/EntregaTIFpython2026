@@ -28,8 +28,11 @@ def stockInvalido(stock):
     return not isinstance(stock, int) or stock <= 0
 
 def repetido(id):
+    encontrado = False
     for producto in productos.stock:
         if producto["ID"] == id:
-            return True
-    
-    return False
+            encontrado = True
+    return encontrado
+
+def buscarRepetido(id_buscado):
+    return any(elemento["ID"] == id_buscado for elemento in productos.stock)
