@@ -32,7 +32,6 @@ def agregar_producto():
      - si precio es invalido menor o igual a 0
     Al tener todos los datos válidos se agrega al stock del modulo productos.
     """
-    # [TO DO] la validación por id repetido.
     id_producto = ""
     nombre = ""
     categoria = ""
@@ -135,6 +134,8 @@ def borrar_producto():
             break
     separador()
 
+def actualizar_producto():
+    
 
 def mostrar_menu():
     while True:
